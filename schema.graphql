@@ -1,0 +1,45 @@
+# To improve query performance, we strongly suggest adding indexes to any field that you plan to filter or sort by
+# Add the `@index` or `@index(unique: true)` annotation after any non-key field
+# https://academy.subquery.network/build/graphql.html#indexing-by-non-primary-key-field
+
+type Slashed @entity {
+  """
+  id field is always required and must look like this
+  """
+  id: ID!
+  """
+  Amount that is transferred
+  """
+  amount: BigInt!
+  """
+  The block height of the slash
+  """
+  blockNumber: Int!
+  """
+  The date of the slash
+  """
+  date: Date!
+  """
+  The account that was slashed
+  """
+  account: Account!
+}
+
+type Account @entity {
+  """
+  id field is always required and must look like this
+  """
+  id: ID!
+  """
+  The public key of this account (same across all Polkadot parachains)
+  """
+  publicKey: String!
+  """
+  The first block on which we see a slash involving this account
+  """
+  firstSlashedBlock: Int
+  """
+  The most recent block on which we see a slash involving this account
+  """
+  lastSlashedBlock: Int
+}
